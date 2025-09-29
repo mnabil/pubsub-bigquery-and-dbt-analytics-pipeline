@@ -29,6 +29,8 @@ env:
   DBT_PROFILES_DIR: ${{ github.workspace }}/dbt_service
   # Set default region to match Terraform BigQuery datasets
   BIGQUERY_REGION: ${{ github.event.inputs.region || 'US' }}
+  # Expose project id (must match secret value usage below)
+  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
 
 jobs:
   dbt-run:
@@ -64,21 +66,27 @@ jobs:
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       
+    - name: Create service account key file
+      run: |
+        echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
+        chmod 600 /tmp/gcp-key.json
+        echo "Service account key written to /tmp/gcp-key.json (permissions tightened)."
+
     - name: Create dbt profiles.yml
       run: |
         mkdir -p "$DBT_PROFILES_DIR"
         echo "Writing profiles.yml to $DBT_PROFILES_DIR"
-        cat > "$DBT_PROFILES_DIR/profiles.yml" << 'EOF'
+        cat > "$DBT_PROFILES_DIR/profiles.yml" << EOF
         dbt_service:
           target: prod
           outputs:
             prod:
               type: bigquery
               method: service-account
-              keyfile_json: /tmp/gcp-key.json
-              project: ${GCP_PROJECT_ID}
-              dataset: raw
-              location: ${BIGQUERY_REGION}
+              keyfile: /tmp/gcp-key.json
+              project: $GCP_PROJECT_ID
+              dataset: staging
+              location: $BIGQUERY_REGION
               threads: 4
               priority: interactive
               maximum_bytes_billed: 1000000000
@@ -86,12 +94,8 @@ jobs:
               job_retries: 1
         EOF
         echo "profiles.yml (sanitized preview):"
-        # Show only non-sensitive lines (no service account JSON embedded here anyway)
-        grep -v 'keyfile_json' "$DBT_PROFILES_DIR/profiles.yml"
-        
-    - name: Create service account key file
-      run: |
-        echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
+        grep -v 'keyfile' "$DBT_PROFILES_DIR/profiles.yml"
+        echo "Project: $GCP_PROJECT_ID | Region: $BIGQUERY_REGION | Dataset (base): staging"
         
     - name: Install dbt dependencies
       working-directory: dbt_service
