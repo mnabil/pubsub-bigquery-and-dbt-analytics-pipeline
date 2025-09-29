@@ -86,7 +86,9 @@ jobs:
               job_execution_timeout_seconds: 300
               job_retries: 1
         EOF
-        echo "profiles.yml contents:" && sed 's/${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}/***REDACTED***/' "$DBT_PROFILES_DIR/profiles.yml"
+        echo "profiles.yml (sanitized preview):"
+        # Show only non-sensitive lines (no service account JSON embedded here anyway)
+        grep -v 'keyfile_json' "$DBT_PROFILES_DIR/profiles.yml"
         
     - name: Create service account key file
       run: |
