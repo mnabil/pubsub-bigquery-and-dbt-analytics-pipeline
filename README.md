@@ -52,6 +52,13 @@ The Terraform deployment creates:
 - **Dead letter queues** for each topic
 - **BigQuery tables** with appropriate schemas
 
+### 5. (Optional) Publish Sample Events
+Use the provided publisher script to load demo events into Pub/Sub (requires credentials):
+```bash
+python publisher.py  # runs from repo root; publishes three domains
+```
+Messages will appear on the three topics and flow into downstream ingestion (if configured) before you run dbt.
+
 ## 🔧 Data Pipeline Setup (dbt)
 
 ### 1. Environment Setup
