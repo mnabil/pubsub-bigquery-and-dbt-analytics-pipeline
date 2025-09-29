@@ -66,26 +66,27 @@ jobs:
       
     - name: Create dbt profiles.yml
       run: |
-        mkdir -p ~/.dbt
-        cat > ~/.dbt/profiles.yml << EOF
-        bitly_pipeline:
+        mkdir -p "$DBT_PROFILES_DIR"
+        echo "Writing profiles.yml to $DBT_PROFILES_DIR"
+        cat > "$DBT_PROFILES_DIR/profiles.yml" << 'EOF'
+        dbt_service:
           target: prod
           outputs:
             prod:
               type: bigquery
               method: service-account
               keyfile_json: /tmp/gcp-key.json
-              project: ${{ secrets.GCP_PROJECT_ID }}
+              project: ${GCP_PROJECT_ID}
               dataset: raw
-              location: ${{ env.BIGQUERY_REGION }}
+              location: ${BIGQUERY_REGION}
               threads: 4
               timeout_seconds: 300
               priority: interactive
-              # Performance optimizations
-              maximum_bytes_billed: 1000000000  # 1GB limit
+              maximum_bytes_billed: 1000000000
               job_execution_timeout_seconds: 300
               job_retries: 1
         EOF
+        echo "profiles.yml contents:" && sed 's/${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}/***REDACTED***/' "$DBT_PROFILES_DIR/profiles.yml"
         
     - name: Create service account key file
       run: |
@@ -94,6 +95,10 @@ jobs:
     - name: Install dbt dependencies
       working-directory: dbt_service
       run: dbt deps
+
+    - name: dbt debug (verify connection & profiles)
+      working-directory: dbt_service
+      run: dbt debug --target prod
         
     - name: Load seed data
       working-directory: dbt_service
