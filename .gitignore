@@ -231,6 +231,11 @@ site/
 *.zip
 
 # -----------------------------------------------------------------------------
+# GitHub Actions (Keep workflows, ignore runner artifacts)
+# -----------------------------------------------------------------------------
+# Keep workflow files but ignore runner temp files
+.github/workflows/*.log
+
 # Configuration Examples (Keep Templates)
 # -----------------------------------------------------------------------------
 # Keep these files for reference:
