@@ -128,7 +128,8 @@ jobs:
         dbt docs generate --target prod
         
     - name: Upload dbt artifacts
-      uses: actions/upload-artifact@v3
+      # Updated to v4 due to deprecation of v3 (see GitHub changelog 2024-04-16)
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: dbt-artifacts-${{ github.run_id }}
