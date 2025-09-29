@@ -161,4 +161,4 @@ jobs:
       run: |
         echo "✅ dbt pipeline completed successfully!"
         echo "🕐 Run time: $(date)"
-        echo "📊 Check BigQuery datasets for updated data"
+        echo "📊 Check BigQuery datasets for updated data!"
