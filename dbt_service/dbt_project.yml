@@ -13,8 +13,16 @@ clean-targets:
   - "dbt_packages"
 
 seeds:
+  # Keep seed/reference data in raw landing zone (e.g., quarantine lists, product catalog)
   dbt_service:
     +schema: raw
+    product_catalog:
+      +column_types:
+        price: FLOAT64
+        cost: FLOAT64
+        stock_quantity: INT64
+        last_updated: TIMESTAMP
+      +quote_columns: false
 
 models:
   dbt_service:
@@ -24,3 +32,8 @@ models:
     marts:
       +schema: marts
       +materialized: table
+
+snapshots:
+  # Store historical SCD Type 2 state in dedicated dataset
+  dbt_service:
+    +schema: snapshots
