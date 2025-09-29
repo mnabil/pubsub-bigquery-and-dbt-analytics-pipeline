@@ -1,0 +1,11 @@
+transaction_id,user_id,timestamp,amount,currency,payment_method,status,items,shipping_address,billing_country
+txn_9876543210,usr_abc123,2024-01-15T10:45:00Z,999.99,USD,credit_card,completed,"[{""product_id"":""prod_laptop_123"",""quantity"":1,""price"":999.99}]","123 Main St, Anytown, CA 94000",US
+txn_9876543211,usr_def456,2024-01-15T11:00:00Z,49.99,USD,paypal,completed,"[{""product_id"":""prod_mouse_456"",""quantity"":2,""price"":24.995}]","456 Elm St, Toronto, ON M5V3A8",CA
+txn_9876543212,usr_ghi789,2024-01-15T11:15:00Z,1499.99,USD,credit_card,failed,"[{""product_id"":""prod_phone_789"",""quantity"":1,""price"":1499.99}]","789 Oak Rd, London, UK SW1A1AA",UK
+txn_9876543213,usr_jkl012,2024-01-15T11:30:00Z,299.50,EUR,debit_card,completed,"[{""product_id"":""prod_headphones_321"",""quantity"":1,""price"":199.50},{""product_id"":""prod_case_654"",""quantity"":1,""price"":100.00}]","12 Rue de la Paix, Paris 75002",FR
+txn_9876543214,usr_mno345,2024-01-15T11:45:00Z,75.00,USD,apple_pay,completed,"[{""product_id"":""prod_keyboard_111"",""quantity"":1,""price"":75.00}]","999 Market St, San Francisco, CA 94105",US
+txn_9876543215,usr_pqr678,2024-01-15T12:00:00Z,2999.99,USD,credit_card,pending,"[{""product_id"":""prod_desktop_222"",""quantity"":1,""price"":2999.99}]","555 Tech Blvd, Austin, TX 78701",US
+txn_9876543216,usr_abc123,2024-01-15T14:00:00Z,29.99,USD,credit_card,completed,"[{""product_id"":""prod_cable_333"",""quantity"":3,""price"":9.997}]","123 Main St, Anytown, CA 94000",US
+txn_9876543217,,2024-01-15T14:15:00Z,199.99,USD,paypal,failed,"[{""product_id"":""prod_monitor_444"",""quantity"":1,""price"":199.99}]","Invalid Address",
+txn_9876543218,usr_suspicious,2024-01-15T14:30:00Z,79999.00,USD,bitcoin,flagged,"[{""product_id"":""prod_gpu_999"",""quantity"":100,""price"":799.99}]","PO Box 999, Nowhere, XX 00000",XX
+txn_9876543219,usr_stu901,2024-01-15T15:00:00Z,449.95,GBP,credit_card,completed,"[{""product_id"":""prod_tablet_555"",""quantity"":1,""price"":449.95}]","10 Downing St, London SW1A2AA",UK
