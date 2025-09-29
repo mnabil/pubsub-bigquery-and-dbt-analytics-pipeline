@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: fct_events
+    description: "Central fact table combining clickstream and transaction events"
+    
+    columns:
+      - name: source_system
+        description: "Source of the event: clickstream or transactions"
+        tests:
+          - not_null
+      
+      - name: event_id
+        description: "Unique identifier within source system"
+        tests:
+          - not_null
+      
+      - name: user_id
+        description: "User identifier"
+        tests:
+          - not_null
+      
+      - name: event_timestamp
+        description: "When event occurred"
+        tests:
+          - not_null
+      
+      - name: event_date
+        description: "Date partition key"
+        tests:
+          - not_null
+      
+      - name: event_type
+        description: "Type of event"
+        tests:
+          - not_null
+      
+      - name: revenue
+        description: "Revenue amount"
+        tests:
+          - not_null

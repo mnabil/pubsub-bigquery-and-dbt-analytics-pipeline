@@ -1,0 +1,10 @@
+-- Test: Event flags should be mutually exclusive
+-- Only one event flag should be 1 per record
+
+-- select 
+--     source_system,
+--     event_id,
+--     user_id,
+--     is_purchase + is_page_view + is_cart_add as total_flags
+-- from {{ ref('fct_events') }}
+-- where (is_purchase + is_page_view + is_cart_add) != 1

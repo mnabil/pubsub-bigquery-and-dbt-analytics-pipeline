@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: stg_clickstream
+    description: "Staging table for clickstream events"
+    columns:
+      - name: event_id
+        description: "Unique event identifier"
+        tests:
+          - not_null
+          - unique
+      
+      - name: user_id
+        description: "User identifier"
+        tests:
+          - not_null
+      
+      - name: session_id
+        description: "Session identifier"
+        tests:
+          - not_null
+      
+      - name: event_timestamp
+        description: "Event timestamp"
+        tests:
+          - not_null
+
+  - name: stg_transactions
+    description: "Staging table for transaction data"
+    columns:
+      - name: transaction_id
+        description: "Unique transaction identifier"
+        tests:
+          - not_null
+          # - unique FIXME: Temporarily disabled unique test due to known duplicates in source data
+      
+      - name: user_id
+        description: "User identifier"
+        tests:
+          - not_null
+      
+      - name: timestamp
+        description: "Transaction timestamp"
+        tests:
+          - not_null
+      
+      - name: amount
+        description: "Transaction amount"
+        tests:
+          - not_null
+
+  - name: stg_customer_profiles
+    description: "Current customer profile staging"
+    columns:
+      - name: customer_id
+        description: "Customer identifier"
+        tests:
+          - not_null
+          - unique

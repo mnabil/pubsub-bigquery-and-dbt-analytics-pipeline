@@ -1,0 +1,26 @@
+name: dbt_service
+version: '1.0.0'
+
+profile: dbt_service
+
+seed-paths: ["seeds"]
+model-paths: ["models"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+seeds:
+  dbt_service:
+    +schema: raw
+
+models:
+  dbt_service:
+    staging:
+      +schema: staging
+      +materialized: view
+    marts:
+      +schema: marts
+      +materialized: table

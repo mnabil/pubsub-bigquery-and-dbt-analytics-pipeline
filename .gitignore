@@ -1,0 +1,239 @@
+# =============================================================================
+# Bitly Interview Project - GitIgnore
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Terraform Files (CRITICAL - Contains sensitive data!)
+# -----------------------------------------------------------------------------
+Deploy/.terraform/
+Deploy/.terraform.lock.hcl
+Deploy/terraform.tfstate
+Deploy/terraform.tfstate.backup
+Deploy/terraform.tfplan
+Deploy/*.tfplan
+
+# Service Account Keys (NEVER COMMIT THESE!)
+Deploy/*.json
+*.json
+
+# Terraform variable files with secrets
+Deploy/terraform.tfvars
+Deploy/.terraform.tfvars
+
+# -----------------------------------------------------------------------------
+# dbt Generated Files
+# -----------------------------------------------------------------------------
+dbt_service/target/
+dbt_service/dbt_packages/
+dbt_service/dbt_internal_packages/
+dbt_service/logs/
+dbt_service/dbt_modules/
+
+# dbt artifacts
+**/target/
+**/dbt_packages/
+**/logs/
+
+# -----------------------------------------------------------------------------
+# Python Environment & Dependencies
+# -----------------------------------------------------------------------------
+# Virtual environments
+bitly/
+venv/
+env/
+.venv/
+.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# -----------------------------------------------------------------------------
+# Jupyter Notebooks
+# -----------------------------------------------------------------------------
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+*.ipynb
+
+# Jupyter NbConvert
+*.slides.html
+*.html
+*.pdf
+*.tex
+
+# -----------------------------------------------------------------------------
+# Data Files (Large/Sensitive)
+# -----------------------------------------------------------------------------
+# Large data files
+Data/*_large.*
+Data/*_backup.*
+Data/*_production.*
+
+# Temporary data processing files
+temp_files/
+*.tmp
+*.temp
+*.cache
+
+# CSV files larger than 10MB (adjust as needed)
+# Data/*.csv
+
+# -----------------------------------------------------------------------------
+# OS Generated Files
+# -----------------------------------------------------------------------------
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# -----------------------------------------------------------------------------
+# IDE & Editor Files
+# -----------------------------------------------------------------------------
+# VS Code
+.vscode/
+*.code-workspace
+.history/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.vim/
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# -----------------------------------------------------------------------------
+# Environment Variables & Secrets
+# -----------------------------------------------------------------------------
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# API Keys and secrets
+secrets/
+*.key
+*.pem
+*.p12
+
+# -----------------------------------------------------------------------------
+# Logs & Monitoring
+# -----------------------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# -----------------------------------------------------------------------------
+# Backup Files
+# -----------------------------------------------------------------------------
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+
+# -----------------------------------------------------------------------------
+# Documentation Build
+# -----------------------------------------------------------------------------
+docs/_build/
+site/
+
+# -----------------------------------------------------------------------------
+# Database
+# -----------------------------------------------------------------------------
+*.db
+*.sqlite
+*.sqlite3
+
+# -----------------------------------------------------------------------------
+# Archive Files
+# -----------------------------------------------------------------------------
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# -----------------------------------------------------------------------------
+# Configuration Examples (Keep Templates)
+# -----------------------------------------------------------------------------
+# Keep these files for reference:
+# !Deploy/terraform.tfvars.example
+# !dbt_service/profiles.yml.example
+# !.env.example

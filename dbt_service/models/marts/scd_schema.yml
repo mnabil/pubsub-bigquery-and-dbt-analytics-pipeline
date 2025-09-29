@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: dim_customers_scd2
+    description: "SCD Type 2 customer dimension tracking customer profile changes over time"
+    columns:
+      - name: customer_key
+        description: "Surrogate key for each customer profile version"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Natural key for the customer (business key)"
+        tests:
+          - not_null
+      - name: effective_date
+        description: "Date when this profile version became effective"
+        tests:
+          - not_null
+      - name: expiration_date
+        description: "Date when this profile version expired (null for current records)"
+      - name: is_current
+        description: "Flag indicating if this is the current active profile"
+        tests:
+          - not_null
+      - name: current_segment
+        description: "Customer segment classification"
+      - name: value_tier
+        description: "Customer value classification (High/Medium/Low)"
+      - name: activity_status
+        description: "Customer activity status (Active/Lapsed/Inactive)"
+      - name: conversion_profile
+        description: "Customer conversion behavior profile"
+
+snapshots:
+  - name: customer_profiles_snapshot
+    description: "dbt snapshot tracking customer profile changes using SCD Type 2"
+    columns:
+      - name: customer_id
+        description: "Natural key for the customer"
+        tests:
+          - not_null
+      - name: dbt_scd_id
+        description: "Unique identifier for each snapshot record"
+        tests:
+          - unique
+          - not_null
+      - name: dbt_updated_at
+        description: "Timestamp when the record was last updated"
+      - name: dbt_valid_from
+        description: "Timestamp when this version became valid"
+      - name: dbt_valid_to
+        description: "Timestamp when this version became invalid (null for current)"

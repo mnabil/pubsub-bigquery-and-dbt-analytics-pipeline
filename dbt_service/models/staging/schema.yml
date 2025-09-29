@@ -1,0 +1,184 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: raw data from raw schema/dataset in bigquery
+    tables:
+      - name: clickstream_events
+        description: clickstream events data consumed from pubsub
+        columns:
+          - name: subscription_name
+            description: Pub/Sub subscription name for data lineage
+            data_type: STRING
+          - name: message_id
+            description: Unique Pub/Sub message identifier
+            data_type: STRING
+          - name: publish_time
+            description: Timestamp when message was published to Pub/Sub
+            data_type: TIMESTAMP
+          - name: attributes
+            description: Pub/Sub message attributes metadata
+            data_type: STRING
+          - name: event_id
+            description: Unique identifier for each event
+            data_type: STRING
+          - name: user_id
+            description: Unique identifier for the user
+            data_type: STRING
+          - name: session_id
+            description: Session identifier
+            data_type: STRING
+          - name: timestamp
+            description: Event timestamp
+            data_type: TIMESTAMP
+          - name: event_type
+            description: Type of event (page_view, purchase, etc.)
+            data_type: STRING
+          - name: page_url
+            description: URL of the page
+            data_type: STRING
+          - name: user_agent
+            description: User agent string
+            data_type: STRING
+          - name: ip_address
+            description: User IP address
+            data_type: STRING
+          - name: referrer
+            description: Referrer URL
+            data_type: STRING
+          - name: device_type
+            description: Type of device (mobile, desktop, tablet)
+            data_type: STRING
+          - name: country
+            description: User country
+            data_type: STRING
+          - name: properties
+            description: Nested properties record with product details
+            data_type: STRUCT<product_id STRING, category STRING, price FLOAT64, quantity INT64, cart_value FLOAT64, items_count INT64, results_count INT64, search_query STRING>
+            
+      - name: customer_support_tickets
+        description: customer support tickets and interactions
+        columns:
+          - name: subscription_name
+            description: Pub/Sub subscription name for data lineage
+            data_type: STRING
+          - name: message_id
+            description: Unique Pub/Sub message identifier
+            data_type: STRING
+          - name: publish_time
+            description: Timestamp when message was published to Pub/Sub
+            data_type: TIMESTAMP
+          - name: attributes
+            description: Pub/Sub message attributes metadata
+            data_type: STRING
+          - name: ticket_id
+            description: Unique identifier for support ticket
+            data_type: STRING
+            tests:
+              - not_null
+          - name: user_id
+            description: User who created the ticket
+            data_type: STRING
+            tests:
+              - not_null
+          - name: created_at
+            description: Timestamp when ticket was created
+            data_type: TIMESTAMP
+            tests:
+              - not_null
+          - name: category
+            description: Support category (shipping, billing, etc.)
+            data_type: STRING
+          - name: priority
+            description: Ticket priority level
+            data_type: STRING
+          - name: status
+            description: Current ticket status
+            data_type: STRING
+          - name: subject
+            description: Ticket subject line
+            data_type: STRING
+          - name: description
+            description: Detailed ticket description
+            data_type: STRING
+            
+      - name: product_catalog  
+        description: product catalog with pricing and inventory
+        columns:
+          - name: product_id
+            description: Unique product identifier
+            data_type: STRING
+          - name: name
+            description: Product name
+            data_type: STRING
+          - name: category
+            description: Product category
+            data_type: STRING
+          - name: subcategory
+            description: Product subcategory
+            data_type: STRING
+          - name: price
+            description: Product retail price
+            data_type: FLOAT64
+          - name: cost
+            description: Product cost
+            data_type: FLOAT64
+          - name: stock_quantity
+            description: Current stock quantity
+            data_type: INT64
+          - name: supplier_id
+            description: Supplier identifier
+            data_type: STRING
+            
+      - name: transaction_events
+        description: completed and failed transaction records
+        columns:
+          - name: subscription_name
+            description: Pub/Sub subscription name for data lineage
+            data_type: STRING
+          - name: message_id
+            description: Unique Pub/Sub message identifier
+            data_type: STRING
+          - name: publish_time
+            description: Timestamp when message was published to Pub/Sub
+            data_type: TIMESTAMP
+          - name: attributes
+            description: Pub/Sub message attributes metadata
+            data_type: STRING
+          - name: transaction_id
+            description: Unique transaction identifier
+            data_type: STRING
+            tests:
+              - not_null
+          - name: user_id
+            description: User who made the transaction
+            data_type: STRING
+            tests:
+              - not_null
+          - name: timestamp
+            description: Transaction timestamp
+            data_type: TIMESTAMP
+            tests:
+              - not_null
+          - name: amount
+            description: Transaction amount
+            data_type: FLOAT64
+          - name: currency
+            description: Transaction currency
+            data_type: STRING
+          - name: payment_method
+            description: Payment method used
+            data_type: STRING
+          - name: status
+            description: Transaction status (completed, failed, etc.)
+            data_type: STRING
+          - name: items
+            description: JSON string of purchased items
+            data_type: STRING
+          - name: shipping_address
+            description: Shipping address
+            data_type: STRING
+          - name: billing_country
+            description: Billing country
+            data_type: STRING
