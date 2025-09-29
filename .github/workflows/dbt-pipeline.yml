@@ -80,7 +80,6 @@ jobs:
               dataset: raw
               location: ${BIGQUERY_REGION}
               threads: 4
-              timeout_seconds: 300
               priority: interactive
               maximum_bytes_billed: 1000000000
               job_execution_timeout_seconds: 300
