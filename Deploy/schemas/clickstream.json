@@ -1,0 +1,35 @@
+[
+  { "name": "subscription_name", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "message_id", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "publish_time", "type": "TIMESTAMP", "mode": "NULLABLE" },
+  { "name": "attributes", "type": "STRING", "mode": "NULLABLE" },
+
+  { "name": "event_id", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "user_id", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "session_id", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "timestamp", "type": "TIMESTAMP", "mode": "NULLABLE" },
+  { "name": "event_type", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "page_url", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "user_agent", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "ip_address", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "referrer", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "device_type", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "country", "type": "STRING", "mode": "NULLABLE" },
+
+  {
+    "name": "properties",
+    "type": "RECORD",
+    "mode": "NULLABLE",
+    "fields": [
+      { "name": "product_id", "type": "STRING", "mode": "NULLABLE" },
+      { "name": "category", "type": "STRING", "mode": "NULLABLE" },
+      { "name": "price", "type": "FLOAT", "mode": "NULLABLE" },
+      { "name": "quantity", "type": "INTEGER", "mode": "NULLABLE" },
+      { "name": "cart_value", "type": "FLOAT", "mode": "NULLABLE" },
+      { "name": "items_count", "type": "INTEGER", "mode": "NULLABLE" },
+      { "name": "results_count", "type": "INTEGER", "mode": "NULLABLE" },
+      { "name": "search_query", "type": "STRING", "mode": "NULLABLE" }
+    ]
+  }
+]
+

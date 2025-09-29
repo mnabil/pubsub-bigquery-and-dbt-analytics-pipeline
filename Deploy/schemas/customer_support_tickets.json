@@ -1,0 +1,19 @@
+[
+  { "name": "subscription_name", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "message_id", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "publish_time", "type": "TIMESTAMP", "mode": "NULLABLE" },
+  { "name": "attributes", "type": "STRING", "mode": "NULLABLE" },
+
+  { "name": "ticket_id", "type": "STRING", "mode": "REQUIRED" },
+  { "name": "user_id", "type": "STRING", "mode": "REQUIRED" },
+  { "name": "created_at", "type": "TIMESTAMP", "mode": "REQUIRED" },
+  { "name": "category", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "priority", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "status", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "subject", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "description", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "sentiment_score", "type": "FLOAT", "mode": "NULLABLE" },
+  { "name": "agent_id", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "resolution_time_hours", "type": "FLOAT", "mode": "NULLABLE" },
+  { "name": "satisfaction_score", "type": "FLOAT", "mode": "NULLABLE" }
+]

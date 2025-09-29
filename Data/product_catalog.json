@@ -1,0 +1,97 @@
+[
+  {
+    "product_id": "prod_laptop_123",
+    "name": "UltraBook Pro 15",
+    "category": "electronics",
+    "subcategory": "laptops",
+    "price": 999.99,
+    "cost": 650.00,
+    "stock_quantity": 145,
+    "supplier_id": "sup_tech_001",
+    "last_updated": "2024-01-14T08:00:00Z",
+    "attributes": {
+      "brand": "TechCorp",
+      "ram": "16GB",
+      "storage": "512GB SSD",
+      "processor": "Intel i7",
+      "screen_size": "15.6 inch",
+      "weight": "1.8 kg"
+    },
+    "tags": ["premium", "business", "lightweight"]
+  },
+  {
+    "product_id": "prod_mouse_456",
+    "name": "Wireless Precision Mouse",
+    "category": "electronics",
+    "subcategory": "accessories",
+    "price": 24.99,
+    "cost": 12.00,
+    "stock_quantity": 523,
+    "supplier_id": "sup_tech_001",
+    "last_updated": "2024-01-10T12:00:00Z",
+    "attributes": {
+      "brand": "TechCorp",
+      "connectivity": "Bluetooth 5.0",
+      "battery_life": "6 months",
+      "dpi": "1600"
+    },
+    "tags": ["wireless", "ergonomic"]
+  },
+  {
+    "product_id": "prod_phone_789",
+    "name": "SmartPhone X Pro",
+    "category": "electronics",
+    "subcategory": "smartphones",
+    "price": 1499.99,
+    "cost": 900.00,
+    "stock_quantity": 67,
+    "supplier_id": "sup_mobile_002",
+    "last_updated": "2024-01-13T15:30:00Z",
+    "attributes": {
+      "brand": "PhoneCorp",
+      "storage": "256GB",
+      "ram": "12GB",
+      "screen_size": "6.7 inch",
+      "camera": "108MP",
+      "5g": true
+    },
+    "tags": ["flagship", "5g", "premium"]
+  },
+  {
+    "product_id": "prod_headphones_321",
+    "name": "Noise-Cancel Pro",
+    "category": "electronics",
+    "subcategory": "audio",
+    "price": 199.50,
+    "cost": 95.00,
+    "stock_quantity": 0,
+    "supplier_id": "sup_audio_003",
+    "last_updated": "2024-01-14T10:00:00Z",
+    "attributes": {
+      "brand": "AudioTech",
+      "type": "over-ear",
+      "noise_cancellation": true,
+      "battery_life": "30 hours",
+      "wireless": true
+    },
+    "tags": ["premium", "noise-cancelling", "wireless"]
+  },
+  {
+    "product_id": "prod_gpu_999",
+    "name": "Mining Master 3090",
+    "category": "electronics",
+    "subcategory": "components",
+    "price": 799.99,
+    "cost": 600.00,
+    "stock_quantity": 15,
+    "supplier_id": "sup_comp_004",
+    "last_updated": "2024-01-15T06:00:00Z",
+    "attributes": {
+      "brand": "GraphicsCorp",
+      "memory": "24GB GDDR6X",
+      "cuda_cores": "10496",
+      "tdp": "350W"
+    },
+    "tags": ["high-performance", "mining", "gaming"]
+  }
+]

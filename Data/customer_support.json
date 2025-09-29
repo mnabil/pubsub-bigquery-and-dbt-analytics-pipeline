@@ -1,0 +1,72 @@
+[
+  {
+    "ticket_id": "tkt_111222333",
+    "user_id": "usr_abc123",
+    "created_at": "2024-01-16T09:00:00Z",
+    "category": "shipping",
+    "priority": "high",
+    "status": "open",
+    "subject": "Order not received",
+    "description": "I ordered a laptop 3 days ago but haven't received any shipping updates.",
+    "sentiment_score": -0.7,
+    "agent_id": "agent_001",
+    "resolution_time_hours": null,
+    "satisfaction_score": null
+  },
+  {
+    "ticket_id": "tkt_111222334",
+    "user_id": "usr_def456",
+    "created_at": "2024-01-15T14:30:00Z",
+    "category": "product",
+    "priority": "medium",
+    "status": "resolved",
+    "subject": "Mouse connectivity issues",
+    "description": "The wireless mouse keeps disconnecting from my laptop.",
+    "sentiment_score": -0.3,
+    "agent_id": "agent_002",
+    "resolution_time_hours": 2.5,
+    "satisfaction_score": 4
+  },
+  {
+    "ticket_id": "tkt_111222335",
+    "user_id": "usr_ghi789",
+    "created_at": "2024-01-15T11:20:00Z",
+    "category": "payment",
+    "priority": "urgent",
+    "status": "escalated",
+    "subject": "Payment failed but money deducted",
+    "description": "My credit card was charged but the order shows as failed. Need immediate refund!",
+    "sentiment_score": -0.9,
+    "agent_id": "agent_003",
+    "resolution_time_hours": null,
+    "satisfaction_score": null
+  },
+  {
+    "ticket_id": "tkt_111222336",
+    "user_id": "usr_jkl012",
+    "created_at": "2024-01-14T16:00:00Z",
+    "category": "product",
+    "priority": "low",
+    "status": "resolved",
+    "subject": "Product recommendation",
+    "description": "Looking for headphones suitable for running. Any recommendations?",
+    "sentiment_score": 0.5,
+    "agent_id": "agent_001",
+    "resolution_time_hours": 0.5,
+    "satisfaction_score": 5
+  },
+  {
+    "ticket_id": "tkt_111222337",
+    "user_id": "usr_suspicious",
+    "created_at": "2024-01-15T14:35:00Z",
+    "category": "account",
+    "priority": "urgent",
+    "status": "under_review",
+    "subject": "Account wrongly flagged",
+    "description": "My account was flagged for suspicious activity. This is a legitimate business purchase!",
+    "sentiment_score": -0.8,
+    "agent_id": "agent_security",
+    "resolution_time_hours": null,
+    "satisfaction_score": null
+  }
+]

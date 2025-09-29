@@ -1,0 +1,132 @@
+[
+  {
+    "event_id": "evt_1234567890",
+    "user_id": "usr_abc123",
+    "session_id": "ses_xyz789",
+    "timestamp": "2024-01-15T10:23:45.123Z",
+    "event_type": "page_view",
+    "page_url": "/products/laptop-123",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "ip_address": "192.168.1.100",
+    "referrer": "google.com",
+    "device_type": "desktop",
+    "country": "US",
+    "properties": {
+      "product_id": "prod_laptop_123",
+      "category": "electronics",
+      "price": 999.99
+    }
+  },
+  {
+    "event_id": "evt_1234567891",
+    "user_id": "usr_abc123",
+    "session_id": "ses_xyz789",
+    "timestamp": "2024-01-15T10:24:12.456Z",
+    "event_type": "add_to_cart",
+    "page_url": "/products/laptop-123",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "ip_address": "192.168.1.100",
+    "device_type": "desktop",
+    "country": "US",
+    "properties": {
+      "product_id": "prod_laptop_123",
+      "quantity": 1,
+      "cart_value": 999.99
+    }
+  },
+  {
+    "event_id": "evt_1234567892",
+    "user_id": "usr_abc123",
+    "session_id": "ses_xyz789",
+    "timestamp": "2024-01-15T10:24:45.789Z",
+    "event_type": "page_view",
+    "page_url": "/checkout",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "ip_address": "192.168.1.100",
+    "device_type": "desktop",
+    "country": "US",
+    "properties": {
+      "cart_value": 999.99,
+      "items_count": 1
+    }
+  },
+  {
+    "event_id": "evt_1234567893",
+    "user_id": "usr_def456",
+    "session_id": "ses_aaa111",
+    "timestamp": "2024-01-15T10:30:00.000Z",
+    "event_type": "page_view",
+    "page_url": "/",
+    "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)",
+    "ip_address": "10.0.0.50",
+    "referrer": "facebook.com",
+    "device_type": "mobile",
+    "country": "CA",
+    "properties": {}
+  },
+  {
+    "event_id": "evt_1234567894",
+    "user_id": "usr_def456",
+    "session_id": "ses_aaa111",
+    "timestamp": "2024-01-15T10:30:15.123Z",
+    "event_type": "search",
+    "page_url": "/search",
+    "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)",
+    "ip_address": "10.0.0.50",
+    "device_type": "mobile",
+    "country": "CA",
+    "properties": {
+      "search_query": "wireless mouse",
+      "results_count": 24
+    }
+  },
+  {
+    "event_id": "evt_1234567895",
+    "user_id": "usr_ghi789",
+    "session_id": "ses_bbb222",
+    "timestamp": "2024-01-15T11:00:00.000Z",
+    "event_type": "page_view",
+    "page_url": "/products/phone-789",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+    "ip_address": "172.16.0.100",
+    "referrer": "instagram.com",
+    "device_type": "desktop",
+    "country": "UK",
+    "properties": {
+      "product_id": "prod_phone_789",
+      "category": "electronics",
+      "price": 1499.99
+    }
+  },
+  {
+    "event_id": "evt_1234567896",
+    "user_id": null,
+    "session_id": "ses_ccc333",
+    "timestamp": "2024-01-15T11:05:00.000Z",
+    "event_type": "page_view",
+    "page_url": "/about",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64)",
+    "ip_address": "192.168.10.25",
+    "referrer": null,
+    "device_type": "desktop",
+    "country": "DE",
+    "properties": {}
+  },
+  {
+    "event_id": "evt_1234567897",
+    "user_id": "usr_suspicious",
+    "session_id": "ses_ddd444",
+    "timestamp": "2024-01-15T11:10:00.000Z",
+    "event_type": "add_to_cart",
+    "page_url": "/products/gpu-999",
+    "user_agent": "Bot/1.0",
+    "ip_address": "1.2.3.4",
+    "device_type": "desktop",
+    "country": "XX",
+    "properties": {
+      "product_id": "prod_gpu_999",
+      "quantity": 100,
+      "cart_value": 79999.00
+    }
+  }
+]
