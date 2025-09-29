@@ -1,9 +1,9 @@
 name: dbt Data Pipeline
 
 on:
-  # Run every hour at the top of the hour
+  # Run once daily at 02:15 UTC (adjust as needed)
   schedule:
-    - cron: '0 * * * *'
+    - cron: '15 2 * * *'
   
   # Allow manual triggering for testing
   workflow_dispatch:
