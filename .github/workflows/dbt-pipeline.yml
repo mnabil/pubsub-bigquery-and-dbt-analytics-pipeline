@@ -25,8 +25,8 @@ on:
       - '.github/workflows/dbt-pipeline.yml'
 
 env:
-  DBT_PROFILES_DIR: ./dbt_service
-  DBT_PROJECT_DIR: ./dbt_service
+  # Point profiles directory to dbt project folder (absolute via github.workspace)
+  DBT_PROFILES_DIR: ${{ github.workspace }}/dbt_service
   # Set default region to match Terraform BigQuery datasets
   BIGQUERY_REGION: ${{ github.event.inputs.region || 'US' }}
 
@@ -76,7 +76,7 @@ jobs:
               method: service-account
               keyfile_json: /tmp/gcp-key.json
               project: ${{ secrets.GCP_PROJECT_ID }}
-              dataset: staging
+              dataset: raw
               location: ${{ env.BIGQUERY_REGION }}
               threads: 4
               timeout_seconds: 300
@@ -92,18 +92,16 @@ jobs:
         echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
         
     - name: Install dbt dependencies
-      run: |
-        cd dbt_service
-        dbt deps
+      working-directory: dbt_service
+      run: dbt deps
         
     - name: Load seed data
-      run: |
-        cd dbt_service
-        dbt seed --target prod
+      working-directory: dbt_service
+      run: dbt seed --target prod
         
     - name: Run dbt models
+      working-directory: dbt_service
       run: |
-        cd dbt_service
         if [ "${{ github.event.inputs.models }}" != "" ]; then
           echo "Running specific models: ${{ github.event.inputs.models }}"
           dbt run --target prod --models ${{ github.event.inputs.models }}
@@ -113,19 +111,16 @@ jobs:
         fi
         
     - name: Run dbt snapshots
-      run: |
-        cd dbt_service
-        dbt snapshot --target prod
+      working-directory: dbt_service
+      run: dbt snapshot --target prod
         
     - name: Run dbt tests
-      run: |
-        cd dbt_service
-        dbt test --target prod
+      working-directory: dbt_service
+      run: dbt test --target prod
         
     - name: Generate documentation
-      run: |
-        cd dbt_service
-        dbt docs generate --target prod
+      working-directory: dbt_service
+      run: dbt docs generate --target prod
         
     - name: Upload dbt artifacts
       # Updated to v4 due to deprecation of v3 (see GitHub changelog 2024-04-16)
@@ -138,6 +133,11 @@ jobs:
           dbt_service/target/run_results.json
           dbt_service/target/catalog.json
           dbt_service/logs/
+    - name: Debug workspace on failure
+      if: failure()
+      run: |
+        echo "Workspace structure:" && ls -R | head -100
+        echo "dbt_service contents:" && ls -R dbt_service | head -200
         retention-days: 30
         
     - name: Notify on failure
