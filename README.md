@@ -1,5 +1,3 @@
-# Bitly Interview - Data Engineering Pipeline
-
 This project demonstrates a complete data engineering pipeline using **dbt 2.0** with **BigQuery**, implementing modern data warehouse patterns including Kimball dimensional modeling, SCD Type 2, and data quality management.
 
 ## 🚀 Quick Start
