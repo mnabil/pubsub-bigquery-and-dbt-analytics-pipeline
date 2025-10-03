@@ -34,7 +34,7 @@ jobs:
       run: |
         mkdir -p ~/.dbt
         cat > ~/.dbt/profiles.yml << EOF
-        bitly_pipeline:
+        pipeline:
           target: dev
           outputs:
             dev:
