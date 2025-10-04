@@ -1,67 +1,67 @@
-# name: dbt CI/CD
+name: dbt CI/CD
 
-# on:
-#   pull_request:
-#     branches: [ main ]
-#     paths: 
-#       - 'dbt_service/**'
+on:
+  pull_request:
+    branches: [ main ]
+    paths: 
+      - 'dbt_service/**'
 
-# env:
-#   DBT_PROFILES_DIR: ./dbt_service
+env:
+  DBT_PROFILES_DIR: ./dbt_service
 
-# jobs:
-#   dbt-test:
-#     runs-on: ubuntu-latest
+jobs:
+  dbt-test:
+    runs-on: ubuntu-latest
     
-#     steps:
-#     - uses: actions/checkout@v4
+    steps:
+    - uses: actions/checkout@v4
     
-#     - name: Set up Python
-#       uses: actions/setup-python@v4
-#       with:
-#         python-version: '3.11'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
         
-#     - name: Install dependencies
-#       run: |
-#         pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
         
-#     - name: Authenticate to Google Cloud
-#       uses: google-github-actions/auth@v1
-#       with:
-#         credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
         
-#     - name: Create dbt profiles.yml
-#       run: |
-#         mkdir -p ~/.dbt
-#         cat > ~/.dbt/profiles.yml << EOF
-#         pipeline:
-#           target: dev
-#           outputs:
-#             dev:
-#               type: bigquery
-#               method: service-account
-#               keyfile_json: /tmp/gcp-key.json
-#               project: ${{ secrets.GCP_PROJECT_ID }}
-#               dataset: staging_dev
-#               location: US
-#               threads: 2
-#               timeout_seconds: 300
-#               maximum_bytes_billed: 100000000  # 100MB limit for dev
-#         EOF
+    - name: Create dbt profiles.yml
+      run: |
+        mkdir -p ~/.dbt
+        cat > ~/.dbt/profiles.yml << EOF
+        pipeline:
+          target: dev
+          outputs:
+            dev:
+              type: bigquery
+              method: service-account
+              keyfile_json: /tmp/gcp-key.json
+              project: ${{ secrets.GCP_PROJECT_ID }}
+              dataset: staging_dev
+              location: US
+              threads: 2
+              timeout_seconds: 300
+              maximum_bytes_billed: 100000000  # 100MB limit for dev
+        EOF
         
-#     - name: Create service account key file
-#       run: |
-#         echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
+    - name: Create service account key file
+      run: |
+        echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
         
-#     - name: dbt deps and compile
-#       run: |
-#         cd dbt_service
-#         dbt deps
-#         dbt compile --target dev
+    - name: dbt deps and compile
+      run: |
+        cd dbt_service
+        dbt deps
+        dbt compile --target dev
         
-#     - name: dbt test (dry run validation)
-#       run: |
-#         cd dbt_service
-#         # Only run parsing and compilation for PR validation
-#         dbt parse --target dev
-#         echo "✅ dbt models validated successfully!"
+    - name: dbt test (dry run validation)
+      run: |
+        cd dbt_service
+        # Only run parsing and compilation for PR validation
+        dbt parse --target dev
+        echo "✅ dbt models validated successfully!"

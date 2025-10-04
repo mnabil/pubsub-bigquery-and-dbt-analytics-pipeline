@@ -1,164 +1,164 @@
-# name: dbt Data Pipeline
+name: dbt Data Pipeline
 
-# on:
-#   # Run once daily at 02:15 UTC (adjust as needed)
-#   schedule:
-#     - cron: '* * * * *'
+on:
+  # Run once daily at 02:15 UTC (adjust as needed)
+  schedule:
+    - cron: '15 2 * * *'
   
-#   # Allow manual triggering for testing
-#   workflow_dispatch:
-#     inputs:
-#       models:
-#         description: 'Specific models to run (optional)'
-#         required: false
-#         default: ''
-#       region:
-#         description: 'BigQuery region (US, us-central1, etc.)'
-#         required: false
-#         default: 'US'
+  # Allow manual triggering for testing
+  workflow_dispatch:
+    inputs:
+      models:
+        description: 'Specific models to run (optional)'
+        required: false
+        default: ''
+      region:
+        description: 'BigQuery region (US, us-central1, etc.)'
+        required: false
+        default: 'US'
       
-#   # Run on push to main for CI/CD
-#   push:
-#     branches: [ main ]
-#     paths: 
-#       - 'dbt_service/**'
-#       - '.github/workflows/dbt-pipeline.yml'
+  # Run on push to main for CI/CD
+  push:
+    branches: [ main ]
+    paths: 
+      - 'dbt_service/**'
+      - '.github/workflows/dbt-pipeline.yml'
 
-# env:
-#   # Point profiles directory to dbt project folder (absolute via github.workspace)
-#   DBT_PROFILES_DIR: ${{ github.workspace }}/dbt_service
-#   # Set default region to match Terraform BigQuery datasets
-#   BIGQUERY_REGION: ${{ github.event.inputs.region || 'US' }}
-#   # Expose project id (must match secret value usage below)
-#   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+env:
+  # Point profiles directory to dbt project folder (absolute via github.workspace)
+  DBT_PROFILES_DIR: ${{ github.workspace }}/dbt_service
+  # Set default region to match Terraform BigQuery datasets
+  BIGQUERY_REGION: ${{ github.event.inputs.region || 'US' }}
+  # Expose project id (must match secret value usage below)
+  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
 
-# jobs:
-#   dbt-run:
-#     runs-on: ubuntu-latest
+jobs:
+  dbt-run:
+    runs-on: ubuntu-latest
     
-#     steps:
-#     - name: Checkout repository
-#       uses: actions/checkout@v4
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
       
-#     - name: Set up Python
-#       uses: actions/setup-python@v4
-#       with:
-#         python-version: '3.11'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
         
-#     - name: Cache Python dependencies
-#       uses: actions/cache@v3
-#       with:
-#         path: ~/.cache/pip
-#         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-#         restore-keys: |
-#           ${{ runner.os }}-pip-
+    - name: Cache Python dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
           
-#     - name: Install dependencies
-#       run: |
-#         python -m pip install --upgrade pip
-#         pip install dbt-core dbt-bigquery
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install dbt-core dbt-bigquery
         
-#     - name: Authenticate to Google Cloud
-#       uses: google-github-actions/auth@v1
-#       with:
-#         credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
         
-#     - name: Set up Cloud SDK
-#       uses: google-github-actions/setup-gcloud@v1
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
       
-#     - name: Create service account key file
-#       run: |
-#         echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
-#         chmod 600 /tmp/gcp-key.json
-#         echo "Service account key written to /tmp/gcp-key.json (permissions tightened)."
+    - name: Create service account key file
+      run: |
+        echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
+        chmod 600 /tmp/gcp-key.json
+        echo "Service account key written to /tmp/gcp-key.json (permissions tightened)."
 
-#     - name: Create dbt profiles.yml
-#       run: |
-#         mkdir -p "$DBT_PROFILES_DIR"
-#         echo "Writing profiles.yml to $DBT_PROFILES_DIR"
-#         cat > "$DBT_PROFILES_DIR/profiles.yml" << EOF
-#         dbt_service:
-#           target: prod
-#           outputs:
-#             prod:
-#               type: bigquery
-#               method: service-account
-#               keyfile: /tmp/gcp-key.json
-#               project: $GCP_PROJECT_ID
-#               dataset: staging
-#               location: $BIGQUERY_REGION
-#               threads: 4
-#               priority: interactive
-#               maximum_bytes_billed: 1000000000
-#               job_execution_timeout_seconds: 300
-#               job_retries: 1
-#         EOF
-#         echo "profiles.yml (sanitized preview):"
-#         grep -v 'keyfile' "$DBT_PROFILES_DIR/profiles.yml"
-#         echo "Project: $GCP_PROJECT_ID | Region: $BIGQUERY_REGION | Dataset (base): staging"
+    - name: Create dbt profiles.yml
+      run: |
+        mkdir -p "$DBT_PROFILES_DIR"
+        echo "Writing profiles.yml to $DBT_PROFILES_DIR"
+        cat > "$DBT_PROFILES_DIR/profiles.yml" << EOF
+        dbt_service:
+          target: prod
+          outputs:
+            prod:
+              type: bigquery
+              method: service-account
+              keyfile: /tmp/gcp-key.json
+              project: $GCP_PROJECT_ID
+              dataset: staging
+              location: $BIGQUERY_REGION
+              threads: 4
+              priority: interactive
+              maximum_bytes_billed: 1000000000
+              job_execution_timeout_seconds: 300
+              job_retries: 1
+        EOF
+        echo "profiles.yml (sanitized preview):"
+        grep -v 'keyfile' "$DBT_PROFILES_DIR/profiles.yml"
+        echo "Project: $GCP_PROJECT_ID | Region: $BIGQUERY_REGION | Dataset (base): staging"
         
-#     - name: Install dbt dependencies
-#       working-directory: dbt_service
-#       run: dbt deps
+    - name: Install dbt dependencies
+      working-directory: dbt_service
+      run: dbt deps
 
-#     - name: dbt debug (verify connection & profiles)
-#       working-directory: dbt_service
-#       run: dbt debug --target prod
+    - name: dbt debug (verify connection & profiles)
+      working-directory: dbt_service
+      run: dbt debug --target prod
         
-#     - name: Load seed data
-#       working-directory: dbt_service
-#       run: dbt seed --target prod
+    - name: Load seed data
+      working-directory: dbt_service
+      run: dbt seed --target prod
         
-#     - name: Run dbt models
-#       working-directory: dbt_service
-#       run: |
-#         if [ "${{ github.event.inputs.models }}" != "" ]; then
-#           echo "Running specific models: ${{ github.event.inputs.models }}"
-#           dbt run --target prod --models ${{ github.event.inputs.models }}
-#         else
-#           echo "Running all models"
-#           dbt run --target prod
-#         fi
+    - name: Run dbt models
+      working-directory: dbt_service
+      run: |
+        if [ "${{ github.event.inputs.models }}" != "" ]; then
+          echo "Running specific models: ${{ github.event.inputs.models }}"
+          dbt run --target prod --models ${{ github.event.inputs.models }}
+        else
+          echo "Running all models"
+          dbt run --target prod
+        fi
         
-#     - name: Run dbt snapshots
-#       working-directory: dbt_service
-#       run: dbt snapshot --target prod
+    - name: Run dbt snapshots
+      working-directory: dbt_service
+      run: dbt snapshot --target prod
         
-#     - name: Run dbt tests
-#       working-directory: dbt_service
-#       run: dbt test --target prod
+    - name: Run dbt tests
+      working-directory: dbt_service
+      run: dbt test --target prod
         
-#     - name: Generate documentation
-#       working-directory: dbt_service
-#       run: dbt docs generate --target prod
+    - name: Generate documentation
+      working-directory: dbt_service
+      run: dbt docs generate --target prod
         
-#     - name: Upload dbt artifacts
-#       # Updated to v4 due to deprecation of v3 (see GitHub changelog 2024-04-16)
-#       uses: actions/upload-artifact@v4
-#       if: always()
-#       with:
-#         name: dbt-artifacts-${{ github.run_id }}
-#         path: |
-#           dbt_service/target/manifest.json
-#           dbt_service/target/run_results.json
-#           dbt_service/target/catalog.json
-#           dbt_service/logs/
-#     - name: Debug workspace on failure
-#       if: failure()
-#       run: |
-#         echo "Workspace structure:" && ls -R | head -100
-#         echo "dbt_service contents:" && ls -R dbt_service | head -200
-#         retention-days: 30
+    - name: Upload dbt artifacts
+      # Updated to v4 due to deprecation of v3 (see GitHub changelog 2024-04-16)
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: dbt-artifacts-${{ github.run_id }}
+        path: |
+          dbt_service/target/manifest.json
+          dbt_service/target/run_results.json
+          dbt_service/target/catalog.json
+          dbt_service/logs/
+    - name: Debug workspace on failure
+      if: failure()
+      run: |
+        echo "Workspace structure:" && ls -R | head -100
+        echo "dbt_service contents:" && ls -R dbt_service | head -200
+        retention-days: 30
         
-#     - name: Notify on failure
-#       if: failure()
-#       run: |
-#         echo "❌ dbt pipeline failed! Check the logs above for details."
-#         echo "Failed step: ${{ job.status }}"
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "❌ dbt pipeline failed! Check the logs above for details."
+        echo "Failed step: ${{ job.status }}"
         
-#     - name: Pipeline success summary
-#       if: success()
-#       run: |
-#         echo "✅ dbt pipeline completed successfully!"
-#         echo "🕐 Run time: $(date)"
-#         echo "📊 Check BigQuery datasets for updated data!"
+    - name: Pipeline success summary
+      if: success()
+      run: |
+        echo "✅ dbt pipeline completed successfully!"
+        echo "🕐 Run time: $(date)"
+        echo "📊 Check BigQuery datasets for updated data!"
