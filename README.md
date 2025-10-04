@@ -1,12 +1,33 @@
+# PubSub BigQuery and DBT Analytics Pipeline
+
 This project demonstrates a complete data engineering pipeline using **dbt 2.0** with **BigQuery**, implementing modern data warehouse patterns including Kimball dimensional modeling, SCD Type 2, and data quality management.
+
+The project spins up 3 main data streams as Pub/Sub topics, handling failures with dead letter queues, and publishing to BigQuery tables downstream, then serving user analytics using dbt.
+
+## 📋 Table of Contents
+
+- [Quick Start](#-quick-start)
+- [Infrastructure Setup (Terraform)](#️-infrastructure-setup-terraform)
+- [Data Pipeline Setup (dbt)](#-data-pipeline-setup-dbt)
+- [Key Features Implemented](#-key-features-implemented)
+- [Model Descriptions](#-model-descriptions)
+- [Testing Strategy](#-testing-strategy)
+- [Business Questions Answered](#-business-questions-answered)
+- [Analytics Queries](#-analytics-queries)
+- [Deployment Commands](#-deployment-commands)
+
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+
+Before getting started, ensure you have:
+
 - **Google Cloud Project** with billing enabled
 - **Terraform** installed (version 1.0+)
 - **dbt 2.0+** installed
 - **Google Cloud** credentials configured
+- **Python 3+** for running scripts and dbt
 
 ## ☁️ Infrastructure Setup (Terraform)
 
@@ -62,11 +83,11 @@ Messages will appear on the three topics and flow into downstream ingestion (if 
 ### 1. Environment Setup
 ```bash
 # Clone repository and navigate to dbt service
-cd bitly/dbt_service
+cd dbt_service
 
 # Create and activate Python virtual environment
-python3 -m venv bitly
-source bitly/bin/activate
+python3 -m venv dbt_env
+source dbt_env/bin/activate
 
 # Install dbt with BigQuery adapter
 pip install dbt-core dbt-bigquery
@@ -192,14 +213,17 @@ Sample business intelligence queries are provided in:
 
 ## 🚀 Deployment Commands
 
-### dbt Pipeline Commands
+### Full Pipeline Commands
 ```bash
-# Full pipeline refresh
+# Complete pipeline refresh
 dbt clean && dbt seed && dbt run && dbt test && dbt snapshot
 
 # Production deployment (models only)
 dbt run --target prod
+```
 
+### Development Commands
+```bash
 # Incremental development
 dbt run --models +fct_events+  # Run fct_events and all dependencies
 dbt test --models marts        # Test marts layer only
